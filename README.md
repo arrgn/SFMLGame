@@ -1,4 +1,4 @@
-# Simle game on SFML and gRPC
+# Simple game on SFML and gRPC
 This is study project with a lot of bugs (check src/client.cpp:58 for example)
 
 # How to run
