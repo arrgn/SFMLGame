@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+service Chain {
+    rpc Gaming (stream Block) returns (stream Block) {}
+}
+
+message JoinGame {
+    float x = 1;
+    float y = 2;
+}
+
+message QuitGame {}
+
+message Transfer {
+    float x = 1;
+    float y = 2;
+}
+
+message Block {
+    string name = 1;
+    oneof msg {
+        Transfer trans = 2;
+        JoinGame join = 3;
+        QuitGame quit = 4;
+    }
+}

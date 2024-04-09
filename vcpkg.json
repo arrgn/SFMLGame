@@ -1,0 +1,8 @@
+{
+  "dependencies": [
+    "grpc",
+    "pkgconf",
+    "sfml",
+    "re2"
+  ]
+}

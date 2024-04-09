@@ -1,0 +1,7 @@
+.vscode/
+build/
+vcpkg_installed/
+src/chain.grpc.pb.cc
+src/chain.grpc.pb.h
+src/chain.pb.cc
+src/chain.pb.h
