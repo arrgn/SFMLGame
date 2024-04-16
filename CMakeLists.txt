@@ -23,36 +23,41 @@ set(PROTO_FILES src/chain.grpc.pb.cc src/chain.grpc.pb.h src/chain.pb.cc src/cha
 add_executable(client ${CLIENT_CPP_FILES} ${CLIENT_H_FILES} ${PROTO_FILES})
 add_executable(server ${SERVER_CPP_FILES} ${SERVER_H_FILES} ${PROTO_FILES})
 
-set(INSTALLED_PATH "${CMAKE_SOURCE_DIR}/vcpkg_installed/${HOST_OS}")
+set(INSTALLED_PATH ${CMAKE_SOURCE_DIR}/vcpkg_installed/${HOST_OS})
 
 # libs necessary for gRPC
-set(c-ares_DIR "${INSTALLED_PATH}/share/c-ares")
-set(absl_DIR "${INSTALLED_PATH}/share/absl")
-set(upb_DIR "${INSTALLED_PATH}/share/upb")
-set(re2_DIR "${INSTALLED_PATH}/share/re2")
+set(c-ares_DIR ${INSTALLED_PATH}/share/c-ares)
+set(absl_DIR ${INSTALLED_PATH}/share/absl)
+set(upb_DIR ${INSTALLED_PATH}/share/upb)
+set(re2_DIR ${INSTALLED_PATH}/share/re2)
 
 # set zlib and pkgconf executable for windows
 if (WIN32)
-    set(ZLIB_LIBRARY "${INSTALLED_PATH}/lib/zlib.lib")
-    set(PKG_CONFIG_EXECUTABLE "${INSTALLED_PATH}/tools/pkgconf/pkgconf.exe")
+    set(ZLIB_LIBRARY ${INSTALLED_PATH}/lib/zlib.lib)
+    set(PKG_CONFIG_EXECUTABLE ${INSTALLED_PATH}/tools/pkgconf/pkgconf.exe)
 endif (WIN32)
 
 # set zlib and pkgconf executable for unix
 if (UNIX)
-    set(ZLIB_LIBRARY "${INSTALLED_PATH}/lib/libz.a")
-    set(PKG_CONFIG_EXECUTABLE "${INSTALLED_PATH}/tools/pkgconf/pkgconf")
+    set(ZLIB_LIBRARY ${INSTALLED_PATH}/lib/libz.a)
+    set(PKG_CONFIG_EXECUTABLE ${INSTALLED_PATH}/tools/pkgconf/pkgconf)
 endif (UNIX)
 
-# protobuf
-find_package(Protobuf CONFIG REQUIRED HINTS "${INSTALLED_PATH}/share/protobuf")
+# get zlib_include_dir
+SET(ZLIB_INCLUDE_DIR CACHE STRING "ZLIB_INCLUDE_DIR")
+
+# protobuf and zlib
+find_package(Protobuf CONFIG REQUIRED HINTS ${INSTALLED_PATH}/share/protobuf)
+find_package(ZLIB REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 # gRPC
-find_package(gRPC CONFIG REQUIRED HINTS "${INSTALLED_PATH}/share/grpc")
+find_package(gRPC CONFIG REQUIRED HINTS ${INSTALLED_PATH}/share/grpc)
 target_link_libraries(server PRIVATE gRPC::grpc++)
 target_link_libraries(client PRIVATE gRPC::grpc++)
 
 # absl
-find_package(absl CONFIG REQUIRED HINTS "${INSTALLED_PATH}/share/absl")
+find_package(absl CONFIG REQUIRED HINTS ${INSTALLED_PATH}/share/absl)
 target_link_libraries(server PRIVATE absl::strings absl::flags absl::flags_parse absl::strings)
 target_link_libraries(client PRIVATE absl::strings absl::flags absl::flags_parse absl::strings)
 

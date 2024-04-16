@@ -4,17 +4,8 @@ This is study project with a lot of bugs (check src/client.cpp:58 for example)
 # How to run
 This is a windows example. Project is x64.
 ```
-# Install vcpkg libraries
-vcpkg install
-
-# Generate proto files
-.\vcpkg_installed\x64-windows\tools\protobuf\protoc.exe --proto_path=proto --cpp_out=.\src\ --grpc_out=.\src\ --plugin=protoc-gen-grpc=.\vcpkg_installed\x64-windows\tools\grpc\grpc_cpp_plugin.exe .\proto\chain.proto
-
-# Create build folder
-mkdir build
-
-# Generate build files
-cmake -S . -B .\build\
+# Run bootstrap script
+.\bootstrap.bat -DZLIB_INCLUDE_DIR:STRING=%path_to_zlib%
 
 # Build the project
 cmake --build .\build\
@@ -23,3 +14,8 @@ cmake --build .\build\
 .\build\Debug\server.exe --port=50051
 .\build\Debug\client.exe --host=localhost:50051 --name=user --delay=1000
 ```
+
+path_to_zlib - download zlib from https://www.zlib.net/current/zlib.tar.gz, unpack and set path to unpacked folder as this varible
+
+# Plans for the future
+I recently found out that gRPC works via TCP that is slow for games and I should use something UDP-based instead. So, I am going to learn something new and replace gRPC with that.

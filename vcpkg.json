@@ -2,7 +2,7 @@
   "dependencies": [
     "grpc",
     "pkgconf",
-    "sfml",
-    "re2"
+    "re2",
+    "sfml"
   ]
 }
