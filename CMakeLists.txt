@@ -33,23 +33,20 @@ set(re2_DIR ${INSTALLED_PATH}/share/re2)
 
 # set zlib and pkgconf executable for windows
 if (WIN32)
+    set(ZLIB_INCLUDE_DIR ${INSTALLED_PATH}/lib/zlib.lib)
     set(ZLIB_LIBRARY ${INSTALLED_PATH}/lib/zlib.lib)
     set(PKG_CONFIG_EXECUTABLE ${INSTALLED_PATH}/tools/pkgconf/pkgconf.exe)
 endif (WIN32)
 
 # set zlib and pkgconf executable for unix
 if (UNIX)
+    set(ZLIB_INCLUDE_DIR ${INSTALLED_PATH}/lib/zlib.a)
     set(ZLIB_LIBRARY ${INSTALLED_PATH}/lib/libz.a)
     set(PKG_CONFIG_EXECUTABLE ${INSTALLED_PATH}/tools/pkgconf/pkgconf)
 endif (UNIX)
 
-# get zlib_include_dir
-SET(ZLIB_INCLUDE_DIR CACHE STRING "ZLIB_INCLUDE_DIR")
-
-# protobuf and zlib
+# protobuf
 find_package(Protobuf CONFIG REQUIRED HINTS ${INSTALLED_PATH}/share/protobuf)
-find_package(ZLIB REQUIRED)
-find_package(OpenSSL REQUIRED)
 
 # gRPC
 find_package(gRPC CONFIG REQUIRED HINTS ${INSTALLED_PATH}/share/grpc)
