@@ -2,7 +2,7 @@
 This is study project with a lot of bugs (check src/client.cpp:58 for example)
 
 # How to run
-This is a windows example. Project is x64.
+This is a windows example. The project is x64 and uses vcpkg (be sure you have it added to the PATH).
 ```
 # Run bootstrap script
 .\bootstrap.bat %args%
